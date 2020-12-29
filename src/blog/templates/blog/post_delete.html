@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div style="display: flex;">
+    <form action="" method="POST">
+        {% csrf_token %}
+        <p>Are you sure to delete {{post.title}} ?</p>
+    
+        <input type="submit" value="Delete">
+    </form>
+    <a href="{% url 'blog:list' %}" style="align-self: flex-end;"><button>Cancel</button></a>
+
+</div>
+{% endblock content %}
+    

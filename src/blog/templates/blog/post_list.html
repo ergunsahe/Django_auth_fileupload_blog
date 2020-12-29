@@ -4,11 +4,13 @@
 {% block content %}
     
     {% for object in  object_list %}
-        {{object.title}}
-        {{object.content}}
-        {{object.author}}
-        <img src="{{ object.image.url }}" alt="">
-        {{object.category}}
+       <h1>{{object.title}}</h1> 
+       <img src="{{ object.image.url }}" alt=""><br>
+        {{object.content|truncatechars:20}}
+        <h6>{{object.author}}</h6> 
+        <p>{{object.category}}</p>
+        <a href="{% url 'blog:delete' object.id%}"><button>Delete</button></a>
+        <a href="{% url 'blog:update' object.id%}"><button>Update</button></a>
     {% endfor %}
         
 {% endblock content %}
