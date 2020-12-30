@@ -2,10 +2,13 @@
 
 
 {% block content %}
-
+    <div >
+        <a href="{% url 'blog:create' %}"><button>Add Post</button></a>
+    </div>
     
     {% for object in  object_list %}
-    <div>
+
+    <div style="margin-top: 5rem;">
         <h1>{{object.title}}</h1> 
         <img src="{{ object.image.url }}" alt=""><br>
          {{object.content|truncatechars:20}}

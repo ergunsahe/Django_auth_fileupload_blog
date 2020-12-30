@@ -2,10 +2,11 @@
 
 
 {% block content %}
-    <form action="" method="POST">
+    <form action="" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit" value="Post">Post</button>
     </form>
+    <a href="{% url 'blog:list' %}"><button>Cancel</button></a>
 {% endblock content %}
     
