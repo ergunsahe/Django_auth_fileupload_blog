@@ -2,15 +2,12 @@
 
 
 {% block content %}
-<div style="display: flex;">
+    <p>Are you sure delete {{ object.title }}</p><br>
     <form action="" method="POST">
         {% csrf_token %}
-        <p>Are you sure to delete {{post.title}} ?</p>
-    
-        <input type="submit" value="Delete">
-    </form>
-    <a href="{% url 'blog:list' %}" style="align-self: flex-end;"><button>Cancel</button></a>
+        <a href="{% url 'blog:list' %}">Cancel</a>
+        <button type="submit">Yes</button>
 
-</div>
+    </form>
+
 {% endblock content %}
-    
