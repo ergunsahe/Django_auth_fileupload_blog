@@ -1,9 +1,11 @@
 {% extends 'base.html' %}
+
 {% block content %}
 <h1 style="text-align: center;">Clarusway Blog</h1>
 <div class="row mt-5">
     {% for obj in object_list %}
     <div class="col-4">
+
         <div class="card shadow p-3 mb-5 bg-white rounded" style="width: 18rem; height: 25rem;">
             <img src="{{ obj.image.url }}" class="card-img-top" alt="post_image">
             <hr>
@@ -18,10 +20,12 @@
                         Posted {{ obj.publish_date|timesince }} ago.
                     </small>
                 </p>
+
                 </p>
             </div>
         </div>
     </div>
+
     {% endfor %}
 </div>
 {% endblock content %}
