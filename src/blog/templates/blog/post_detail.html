@@ -18,18 +18,23 @@
         <div>
             <h4>Enjoy this post? Give it a LIKE!!</h4>
         </div>
-
+        
+        
+        
+        
         <div>
+            '
             <form action="{% url 'blog:like' object.slug %}" method="POST">
 
                 {% csrf_token %}
                 <input type="hidden" name="post">
                 <input type="hidden" name="user">
 
-
                 <button type="submit"><i class="far fa-heart fa-lg"></i></button>
                 {{object.like_count }}
+
             </form>
+            
             <hr>
             <!-- {% if user.is_authenticated %} -->
             <h4>Leave a comment below</h4>

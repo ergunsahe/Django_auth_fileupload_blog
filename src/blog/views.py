@@ -2,6 +2,8 @@ from django.http.response import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from .models import Post, Like
 from .forms import CommentForm, PostForm
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 
 def post_list(request):
@@ -12,7 +14,7 @@ def post_list(request):
     
     return render(request, "blog/post_list.html", context)
 
-
+@login_required()
 def post_create(request):
     form = PostForm()
     if request.method == "POST":
@@ -21,6 +23,7 @@ def post_create(request):
             post = form.save(commit=False)
             post.author = request.user
             post.save()
+            messages.success(request, "Post created successfully")
             return redirect("blog:list")
     context= {
         "form":form
@@ -68,7 +71,7 @@ def post_delete(request, slug):
     if request.user.id != obj.author.id:
         # return HttpResponse("You're not authorized")
         return redirect("blog:list")
-    if request.POST=="POST":
+    if request.method =="POST":
         obj.delete()
         return redirect("blog:list")
     
@@ -77,7 +80,10 @@ def post_delete(request, slug):
     }
     return render(request, "blog/post_delete.html", context)
 
+@login_required()
 def like(request, slug):
+
+    
     if request.method == "POST":
         obj = get_object_or_404(Post, slug= slug)
         like_qs = Like.objects.filter(user=request.user, post=obj)
