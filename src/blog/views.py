@@ -23,7 +23,7 @@ def post_create(request):
             post = form.save(commit=False)
             post.author = request.user
             post.save()
-            messages.success(request, "Post created successfully")
+            messages.success(request, "Post created successfully!")
             return redirect("blog:list")
     context= {
         "form":form
@@ -49,14 +49,18 @@ def post_detail(request, slug):
     }
     return render(request, "blog/post_detail.html", context)
 
+
+@login_required()
 def post_update(request, slug):
     obj = get_object_or_404(Post, slug=slug)
     form = PostForm(request.POST or None, request.FILES or None, instance=obj)
     if request.user.id != obj.author.id:
         # return HttpResponse("You're not authorized")
+        messages.warning(request, "You're not owner of this post!")
         return redirect("blog:list")
     if form.is_valid():
         form.save()
+        messages.success(request, "Post is successfully updated!")
         return redirect("blog:list")
     
     context = {
@@ -66,13 +70,17 @@ def post_update(request, slug):
     
     return render(request, "blog/post_update.html", context)
 
+
+@login_required()
 def post_delete(request, slug):
     obj = get_object_or_404(Post, slug=slug)
     if request.user.id != obj.author.id:
         # return HttpResponse("You're not authorized")
+        messages.warning(request, "You're not owner of this post!")
         return redirect("blog:list")
     if request.method =="POST":
         obj.delete()
+        messages.success(request, "Post is deleted!")
         return redirect("blog:list")
     
     context = {
@@ -89,9 +97,11 @@ def like(request, slug):
         like_qs = Like.objects.filter(user=request.user, post=obj)
         if like_qs.exists():
             like_qs[0].delete()
+            
         else:
             Like.objects.create(user=request.user, post=obj)
         return redirect("blog:detail", slug=slug)
+    return redirect("blog:detail", slug=slug)
 
 
 

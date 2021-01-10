@@ -7,12 +7,12 @@ from .forms import RegistrationForm, UserUpdateForm, ProfileUpdateForm
 def register(request):
     form = RegistrationForm(request.POST or None)
     if request.user.is_authenticated:
-        messages.warning(request, "Youre alreadys registered")
+        messages.warning(request, "You're alreadys registered")
         return redirect("blog:list")
     if form.is_valid():
         form.save()
         name= form.cleaned_data["username"]
-        messages.success(request, "You are successfully registered!")
+        messages.success(request, f"Wellcome {name}, you are successfully registered!")
         return redirect("login")
         
     context = {
@@ -28,6 +28,7 @@ def profile(request):
     if u_form.is_valid() and p_form.is_valid():
         u_form.save()
         p_form.save()
+        messages.success(request, "Your profile is updated!")
         return redirect(request.path)
     
     context = {
