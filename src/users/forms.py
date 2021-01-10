@@ -33,7 +33,7 @@ class PasswordResetEmailCheck(PasswordResetForm):
     def clean_email(self):
         email = self.cleaned_data["email"]
         if not User.objects.filter(email=email).exists():
-            raise forms.ValidationError("There is no email")
+            raise forms.ValidationError("This email isn't registered!")
         return email
     
     
