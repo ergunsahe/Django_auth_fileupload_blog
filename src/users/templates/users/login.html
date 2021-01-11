@@ -13,12 +13,16 @@
             <small class="text-muted ml-2">
                 <a href="{% url 'password_reset' %}">Forgot Password?</a>
             </small>
+            <small class="text-muted px-3">
+                <a class="ml-2" href="{% url 'password_change' %}">Change Password</a>
+            </small>
         </div>
     </form>
     <div class="border-top pt-3">
         <small class="text-muted">
             Need an account?<a class="ml-2" href="{% url 'register' %}">Sign Up Now</a>
         </small>
+        
     </div>
 
 </div>
