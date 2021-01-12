@@ -3,3 +3,6 @@
 - install from requirements.txt dependencies
 - create your . env file and add your SECRET_KEY, EMAIL_USER, EMAIL_PASSWORD  here
 - now run server
+
+
+![Blog Django Project Demo](demo/blog_django_demo.gif)
